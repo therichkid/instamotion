@@ -1,13 +1,9 @@
-import { Component } from 'react';
+import { Component, ReactElement } from 'react';
 import './Details.scss';
 
 class Details extends Component {
-  render() {
-    return (
-      <div className="details">
-        <h2>Details</h2>
-      </div>
-    );
+  render(): ReactElement {
+    return <div className="details"></div>;
   }
 }
 

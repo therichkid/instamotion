@@ -1,6 +1,7 @@
 import { Component, ReactElement } from 'react';
 import { Car } from '../../interfaces/car';
 import { fetchCars } from '../../services/api';
+import Card from './card/Card';
 import './Overview.scss';
 
 interface State {
@@ -19,13 +20,9 @@ class Overview extends Component {
   render(): ReactElement {
     return (
       <div className="overview">
-        <h2>Overview</h2>
-
         <div className="grid">
-          {this.state.cars.map(car => (
-            <div>
-              {car.make} {car.model}
-            </div>
+          {this.state.cars.map((car, index) => (
+            <Card car={car} key={index} />
           ))}
         </div>
       </div>
