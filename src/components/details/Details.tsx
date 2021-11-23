@@ -1,11 +1,14 @@
+import React from 'react';
 import './Details.scss';
 
-function Details() {
-  return (
-    <div className="details">
-      <h2>Details</h2>
-    </div>
-  );
+class Details extends React.Component {
+  render() {
+    return (
+      <div className="details">
+        <h2>Details</h2>
+      </div>
+    );
+  }
 }
 
 export default Details;
