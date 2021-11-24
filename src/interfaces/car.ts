@@ -1,8 +1,8 @@
-export interface Car extends CarFilter, CarTile {
+export interface Car extends CarFilterFields, CarTileFields {
   vehicleId: string;
 }
 
-export interface CarFilter {
+export interface CarFilterFields {
   make: string;
   model: string;
   mileage: number;
@@ -15,7 +15,7 @@ export interface CarFilter {
   category: string;
 }
 
-export interface CarTile {
+export interface CarTileFields {
   image: string;
   make: string;
   model: string;
