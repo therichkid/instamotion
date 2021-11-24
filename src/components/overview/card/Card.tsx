@@ -7,9 +7,7 @@ interface Props {
 }
 
 class Card extends Component {
-  props: Props = {
-    car: {} as Car
-  };
+  props: Props;
 
   constructor(props: Props) {
     super(props);
