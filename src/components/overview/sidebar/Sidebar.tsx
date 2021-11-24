@@ -1,6 +1,7 @@
 import { Component, ReactElement } from 'react';
 import { CAR_FILTER } from '../../../constants/filter';
-import { CarFilterField, FilterElement } from '../../../interfaces/filter';
+import { CarFilterField, FilterElement, FilterMatch } from '../../../interfaces/filter';
+import { toLabelCase } from '../../../services/ui';
 import './Sidebar.scss';
 
 class Sidebar extends Component {
@@ -23,16 +24,17 @@ class Sidebar extends Component {
   }
 
   generateFilterField(name: string, field: CarFilterField): ReactElement {
-    const fieldName = name + field.match;
+    const fieldName = this.setFieldName(name, field);
     return (
       <div className="field" key={fieldName}>
-        {this.generateFilterLabel(name)} {this.generateFilterInput(name, field)}
+        {this.generateFilterLabel(fieldName)} {this.generateFilterInput(fieldName, field)}
       </div>
     );
   }
 
   generateFilterLabel(name: string): ReactElement {
-    return <label htmlFor={name}>{name}</label>;
+    const labelName = toLabelCase(name);
+    return <label htmlFor={name}>{labelName}</label>;
   }
 
   generateFilterInput(name: string, field: CarFilterField): ReactElement {
@@ -51,6 +53,15 @@ class Sidebar extends Component {
           </select>
         );
     }
+  }
+
+  private setFieldName(name: string, field: CarFilterField): string {
+    if (field.match === FilterMatch.GTE) {
+      return name + 'From';
+    } else if (field.match === FilterMatch.LTE) {
+      return name + 'To';
+    }
+    return name;
   }
 }
 
