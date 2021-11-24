@@ -15,12 +15,17 @@ class Sidebar extends Component {
   }
 
   generateFilterOption(name: string, fields: CarFilterField[]): ReactElement {
-    return <div className="option">{fields.map(field => this.generateFilterField(name, field))}</div>;
+    return (
+      <div className="option" key={name}>
+        {fields.map(field => this.generateFilterField(name, field))}
+      </div>
+    );
   }
 
   generateFilterField(name: string, field: CarFilterField): ReactElement {
+    const fieldName = name + field.match;
     return (
-      <div className="field">
+      <div className="field" key={fieldName}>
         {this.generateFilterLabel(name)} {this.generateFilterInput(name, field)}
       </div>
     );
