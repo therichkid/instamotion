@@ -1,4 +1,30 @@
 .sidebar {
-  width: 200px;
+  width: 250px;
   height: 100vh;
+  background-color: #fff;
+  padding: 10px 5px;
+
+  .option {
+    display: flex;
+    width: 100%;
+
+    .field {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      margin: 10px 5px;
+
+      label {
+        font-size: smaller;
+      }
+
+      input,
+      select {
+        flex: 1;
+        width: 100%;
+        line-height: 25px;
+        box-sizing: border-box;
+      }
+    }
+  }
 }

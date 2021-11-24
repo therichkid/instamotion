@@ -5,13 +5,18 @@ export enum FilterMatch {
   LTE
 }
 
-export enum FilterField {
+export enum FilterElement {
   INPUT_TEXT,
   INPUT_NUMBER,
   INPUT_DATE,
   SELECT
 }
 
-export interface CarFilter {
-  [key: string]: { match: FilterMatch; field: FilterField }[];
+export interface CarFilterField {
+  match: FilterMatch;
+  element: FilterElement;
+}
+
+export interface CarFilterMap {
+  [key: string]: CarFilterField[];
 }

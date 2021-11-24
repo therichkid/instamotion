@@ -1,23 +1,23 @@
-import { CarFilter, FilterField, FilterMatch } from '../interfaces/filter';
+import { CarFilterMap, FilterElement, FilterMatch } from '../interfaces/filter';
 
-export const CAR_FILTER: CarFilter = {
-  make: [{ match: FilterMatch.INCLUDES, field: FilterField.INPUT_TEXT }],
-  model: [{ match: FilterMatch.INCLUDES, field: FilterField.INPUT_TEXT }],
+export const CAR_FILTER: CarFilterMap = {
+  make: [{ match: FilterMatch.INCLUDES, element: FilterElement.INPUT_TEXT }],
+  model: [{ match: FilterMatch.INCLUDES, element: FilterElement.INPUT_TEXT }],
   mileage: [
-    { match: FilterMatch.GTE, field: FilterField.INPUT_NUMBER },
-    { match: FilterMatch.LTE, field: FilterField.INPUT_NUMBER }
+    { match: FilterMatch.GTE, element: FilterElement.INPUT_NUMBER },
+    { match: FilterMatch.LTE, element: FilterElement.INPUT_NUMBER }
   ],
   power: [
-    { match: FilterMatch.GTE, field: FilterField.INPUT_NUMBER },
-    { match: FilterMatch.LTE, field: FilterField.INPUT_NUMBER }
+    { match: FilterMatch.GTE, element: FilterElement.INPUT_NUMBER },
+    { match: FilterMatch.LTE, element: FilterElement.INPUT_NUMBER }
   ],
-  firstRegistration: [{ match: FilterMatch.EXACT, field: FilterField.INPUT_DATE }],
-  fuel: [{ match: FilterMatch.EXACT, field: FilterField.SELECT }],
+  firstRegistration: [{ match: FilterMatch.EXACT, element: FilterElement.INPUT_DATE }],
+  fuel: [{ match: FilterMatch.EXACT, element: FilterElement.SELECT }],
   price: [
-    { match: FilterMatch.GTE, field: FilterField.INPUT_NUMBER },
-    { match: FilterMatch.LTE, field: FilterField.INPUT_NUMBER }
+    { match: FilterMatch.GTE, element: FilterElement.INPUT_NUMBER },
+    { match: FilterMatch.LTE, element: FilterElement.INPUT_NUMBER }
   ],
-  gearbox: [{ match: FilterMatch.EXACT, field: FilterField.SELECT }],
-  exteriorColor: [{ match: FilterMatch.INCLUDES, field: FilterField.INPUT_TEXT }],
-  category: [{ match: FilterMatch.INCLUDES, field: FilterField.INPUT_TEXT }]
+  gearbox: [{ match: FilterMatch.EXACT, element: FilterElement.SELECT }],
+  exteriorColor: [{ match: FilterMatch.INCLUDES, element: FilterElement.INPUT_TEXT }],
+  category: [{ match: FilterMatch.INCLUDES, element: FilterElement.INPUT_TEXT }]
 };
