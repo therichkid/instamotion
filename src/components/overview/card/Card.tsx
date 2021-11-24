@@ -11,6 +11,12 @@ class Card extends Component {
     car: {} as Car
   };
 
+  constructor(props: Props) {
+    super(props);
+
+    this.props = props;
+  }
+
   render(): ReactElement {
     return (
       <div className="card">
