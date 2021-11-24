@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Car } from '../../interfaces/car';
-import { fetchCars } from '../../services/api';
+import Store from '../../services/store';
 import Card from './card/Card';
 import './Overview.scss';
 
@@ -15,7 +15,7 @@ class Overview extends Component {
   };
 
   componentDidMount(): void {
-    this.getCars();
+    this.setCars();
   }
 
   render(): ReactElement {
@@ -32,11 +32,9 @@ class Overview extends Component {
     );
   }
 
-  async getCars(): Promise<void> {
-    const cars = await fetchCars();
-    this.setState({
-      cars
-    });
+  async setCars(): Promise<void> {
+    const cars = await Store.getCars();
+    this.setState({ cars });
   }
 }
 
