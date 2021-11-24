@@ -6,8 +6,12 @@ export const fetchCars = (): Promise<Car[]> => {
       fetch('http://demo9481430.mockable.io/offers')
         .then(handleErrors)
         .then(response => response.json())
-        .then(data => resolve(data.data.getOffersV3Beta.records));
+        .then(data => {
+          console.log('Fetch cars success', data);
+          resolve(data.data.getOffersV3Beta.records);
+        });
     } catch (error) {
+      console.error('Fetch cars error', error);
       reject(error);
     }
   });
