@@ -9,7 +9,7 @@ interface Props {
 
 const FieldGrid = (props: Props) => {
   const generateSubfield = (
-    name: keyof Car,
+    name: string,
     formatValue?: (value: string | number) => string | number
   ): ReactElement | unknown => {
     const value = props.car?.[name];
