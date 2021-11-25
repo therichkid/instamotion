@@ -24,7 +24,7 @@ const Overview = () => {
 
       <div className="grid">
         {cars.map((car, index) => (
-          <Link to={`/details/${car.vehicleId}`} key={index} style={{ textDecoration: 'none', color: 'unset' }}>
+          <Link to={`/details/${car.vehicleId}`} key={index}>
             <Card car={car} />
           </Link>
         ))}
