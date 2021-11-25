@@ -10,8 +10,8 @@ const Details = () => {
   useEffect(() => {
     (async () => {
       const carId = getCarIdFromRoute();
-      const carData = await Store.getCarById(carId);
-      setCar(carData);
+      const _car = await Store.getCarById(carId);
+      setCar(_car);
     })();
   }, []);
 

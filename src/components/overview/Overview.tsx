@@ -11,8 +11,8 @@ const Overview = () => {
 
   useEffect(() => {
     (async () => {
-      const carData = await Store.getCars();
-      setCars(carData);
+      const _cars = await Store.getCars();
+      setCars(_cars);
     })();
   });
 
