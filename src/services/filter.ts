@@ -27,25 +27,35 @@ export const paramToFilterMap = (paramMap: { [key: string]: string }): FilterMap
 
 export const applyFilter = (cars: Car[], filterMap: FilterMap): Car[] => {
   return cars.filter(car => {
+    let isMatching = true;
+
     for (const key in filterMap) {
       const filterEntries = filterMap[key];
-      return filterEntries.every(entry => {
+      isMatching = filterEntries.every(entry => {
+        const isStringCompare = typeof car[key] === 'string' && typeof entry.value === 'string';
+        const isNumberCompare = typeof car[key] === 'number' && typeof entry.value === 'number';
+        const carValue = isStringCompare ? (car[key] as string).toLowerCase() : car[key];
+        const entryValue = isStringCompare ? (entry.value as string).toLowerCase() : entry.value;
+
         switch (entry.match) {
           case FilterMatch.EXACT:
-            return car[key] === entry.value;
+            return carValue === entryValue;
           case FilterMatch.INCLUDES:
-            return typeof car[key] === 'string' && car[key].includes(entry.value);
+            return carValue.includes(entryValue);
           case FilterMatch.GTE:
-            return typeof car[key] === 'number' && car[key] >= entry.value;
+            return isNumberCompare && car[key] >= entry.value;
           case FilterMatch.LTE:
-            return typeof car[key] === 'number' && car[key] <= entry.value;
+            return isNumberCompare && car[key] <= entry.value;
           default:
             return false;
         }
       });
+      if (!isMatching) {
+        return false;
+      }
     }
 
-    return true;
+    return isMatching;
   });
 };
 
