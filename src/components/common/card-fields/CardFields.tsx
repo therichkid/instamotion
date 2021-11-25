@@ -11,13 +11,15 @@ const CardFields = (props: Props) => {
   const generateSubfield = (
     name: keyof Car,
     formatValue?: (value: string | number) => string | number
-  ): ReactElement => {
+  ): ReactElement | unknown => {
     const value = props.car?.[name];
     return (
-      <div className="subfield">
-        <div className="label">{toLabelCase(name)}</div>
-        <div className="value">{value && formatValue ? formatValue(value) : value}</div>
-      </div>
+      value && (
+        <div className="subfield">
+          <div className="label">{toLabelCase(name)}</div>
+          <div className="value">{value && formatValue ? formatValue(value as string | number) : value}</div>
+        </div>
+      )
     );
   };
 

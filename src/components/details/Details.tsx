@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { Car } from '../../interfaces/car';
 import Store from '../../services/store';
 import CardFields from '../common/card-fields/CardFields';
+import ImageCarousel from '../common/image-carousel/ImageCarousel';
 import './Details.scss';
 
 const Details = () => {
@@ -20,9 +22,20 @@ const Details = () => {
     return pathname?.split('/').pop() || '';
   };
 
+  const navigate = useNavigate();
+
   return (
     <div className="details">
-      <CardFields car={car}></CardFields>
+      <div className="container">
+        <ImageCarousel images={car?.images || []} />
+
+        <CardFields car={car}></CardFields>
+
+        <button className="back-button" onClick={() => navigate(-1)}>
+          <span className="icon">&#8249;</span>
+          Go Back
+        </button>
+      </div>
     </div>
   );
 };

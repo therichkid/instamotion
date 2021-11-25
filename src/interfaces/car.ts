@@ -1,5 +1,6 @@
 export interface Car extends CarFilterFields, CarTileFields {
   vehicleId: string;
+  images: string[];
 }
 
 export interface CarFilterFields {
