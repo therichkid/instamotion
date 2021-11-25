@@ -32,8 +32,8 @@ export const CAR_FILTER_UI_MAP: FilterUIMap = {
       match: FilterMatch.EXACT,
       element: FilterUIElement.SELECT,
       options: [
-        { label: 'Manual', value: 'MANUAL' },
-        { label: 'Automatic', value: 'AUTOMATIC' }
+        { label: 'Manual', value: 'MANUAL_GEAR' },
+        { label: 'Automatic', value: 'AUTOMATIC_GEAR' }
       ]
     }
   ],
