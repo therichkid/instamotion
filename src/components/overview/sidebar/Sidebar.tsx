@@ -55,7 +55,9 @@ const Sidebar = () => {
           <select name={name} value={filter[name]} onChange={event => handleChange(name, event)}>
             <option value="">-- Select --</option>
             {field.options?.map(({ label, value }) => (
-              <option value={value}>{label}</option>
+              <option value={value} key={value}>
+                {label}
+              </option>
             ))}
           </select>
         );
