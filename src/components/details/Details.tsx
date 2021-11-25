@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { Car } from '../../interfaces/car';
 import Store from '../../services/store';
 import CardFields from '../common/card-fields/CardFields';
@@ -8,19 +8,14 @@ import './Details.scss';
 
 const Details = () => {
   const [car, setCar] = useState<Car | undefined>(undefined);
+  const { id: carId } = useParams();
 
   useEffect(() => {
     (async () => {
-      const carId = getCarIdFromRoute();
       const _car = await Store.getCarById(carId);
       setCar(_car);
     })();
-  }, []);
-
-  const getCarIdFromRoute = (): string => {
-    const { pathname } = window.location;
-    return pathname?.split('/').pop() || '';
-  };
+  }, [carId]);
 
   const navigate = useNavigate();
 

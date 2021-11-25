@@ -20,7 +20,7 @@ class Store {
     });
   }
 
-  getCarById(id: string): Promise<Car | undefined> {
+  getCarById(id: string | undefined): Promise<Car | undefined> {
     return new Promise(async (resolve, reject) => {
       try {
         if (!this.areCarsLoaded) {
