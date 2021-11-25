@@ -1,33 +1,17 @@
-import { Component, ReactElement } from 'react';
 import { Car } from '../../../interfaces/car';
 import './Card.scss';
 
 interface Props {
-  car: Car;
+  car: Car | undefined;
 }
 
-class Card extends Component {
-  props: Props;
-
-  constructor(props: Props) {
-    super(props);
-
-    this.props = props;
-  }
-
-  render(): ReactElement {
-    return (
-      <div className="card">
-        <img
-          src={this.props.car.image}
-          alt={`${this.props.car.make} ${this.props.car.model}`}
-          loading="lazy"
-          className="image"
-        />
-        {this.props.car.make} {this.props.car.model}
-      </div>
-    );
-  }
-}
+const Card = (props: Props) => {
+  return (
+    <div className="card">
+      <img src={props.car?.image} alt={`${props.car?.make} ${props.car?.model}`} loading="lazy" className="image" />
+      {props.car?.make} {props.car?.model}
+    </div>
+  );
+};
 
 export default Card;

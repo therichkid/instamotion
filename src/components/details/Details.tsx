@@ -1,40 +1,30 @@
-import { Component, ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 import { Car } from '../../interfaces/car';
 import Store from '../../services/store';
 import Card from '../overview/card/Card';
 import './Details.scss';
 
-interface State {
-  car: Car;
-}
+const Details = () => {
+  const [car, setCar] = useState<Car | undefined>(undefined);
 
-class Details extends Component {
-  state: State = {
-    car: {} as Car
-  };
+  useEffect(() => {
+    (async () => {
+      const carId = getCarIdFromRoute();
+      const carData = await Store.getCarById(carId);
+      setCar(carData);
+    })();
+  }, []);
 
-  componentDidMount() {
-    const vehicleId = this.getVehicleId();
-    this.setCarById(vehicleId);
-  }
-
-  render(): ReactElement {
-    return (
-      <div className="details">
-        <Card car={this.state.car}></Card>
-      </div>
-    );
-  }
-
-  getVehicleId(): string {
+  const getCarIdFromRoute = (): string => {
     const { pathname } = window.location;
     return pathname?.split('/').pop() || '';
-  }
+  };
 
-  async setCarById(id: string): Promise<void> {
-    const car = await Store.getCarById(id);
-    this.setState({ car });
-  }
-}
+  return (
+    <div className="details">
+      <Card car={car}></Card>
+    </div>
+  );
+};
 
 export default Details;

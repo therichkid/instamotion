@@ -1,46 +1,36 @@
-import { Component, ReactElement } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Car } from '../../interfaces/car';
 import Store from '../../services/store';
 import Card from './card/Card';
-import Sidebar from './sidebar/Sidebar';
 import './Overview.scss';
+import Sidebar from './sidebar/Sidebar';
 
-interface State {
-  cars: Car[];
-}
+const Overview = () => {
+  const [cars, setCars] = useState<Car[]>([]);
 
-class Overview extends Component {
-  state: State = {
-    cars: []
-  };
+  useEffect(() => {
+    (async () => {
+      const carData = await Store.getCars();
+      setCars(carData);
+    })();
+  });
 
-  componentDidMount(): void {
-    this.setCars();
-  }
+  return (
+    <div className="overview">
+      <Sidebar />
 
-  render(): ReactElement {
-    return (
-      <div className="overview">
-        <Sidebar />
+      <div className="vertical-separator"></div>
 
-        <div className="vertical-separator"></div>
-
-        <div className="grid">
-          {this.state.cars.map((car, index) => (
-            <Link to={`/details/${car.vehicleId}`} key={index}>
-              <Card car={car} />
-            </Link>
-          ))}
-        </div>
+      <div className="grid">
+        {cars.map((car, index) => (
+          <Link to={`/details/${car.vehicleId}`} key={index}>
+            <Card car={car} />
+          </Link>
+        ))}
       </div>
-    );
-  }
-
-  async setCars(): Promise<void> {
-    const cars = await Store.getCars();
-    this.setState({ cars });
-  }
-}
+    </div>
+  );
+};
 
 export default Overview;
