@@ -2,7 +2,7 @@ import { ChangeEvent, ReactElement, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CAR_FILTER } from '../../../constants/filter';
 import { CarFilterField, FilterElement, FilterMatch } from '../../../interfaces/filter';
-import { toLabelCase } from '../../../services/ui';
+import { camelToLabelCase } from '../../../services/ui';
 import './Sidebar.scss';
 
 const Sidebar = () => {
@@ -38,7 +38,7 @@ const Sidebar = () => {
   };
 
   const generateFilterLabel = (name: string): ReactElement => {
-    const labelName = toLabelCase(name);
+    const labelName = camelToLabelCase(name);
     return <label htmlFor={name}>{labelName}</label>;
   };
 
