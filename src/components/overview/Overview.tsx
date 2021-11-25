@@ -29,10 +29,7 @@ const Overview = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(search);
     const paramMap: { [key: string]: string } = {};
-    searchParams.forEach((value, key) => {
-      paramMap[key] = value;
-      console.log(typeof value);
-    });
+    searchParams.forEach((value, key) => (paramMap[key] = value));
     const filterMap = paramToFilterMap(paramMap);
 
     (async () => {
