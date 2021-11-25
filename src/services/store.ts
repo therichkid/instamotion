@@ -3,12 +3,14 @@ import { fetchCars } from './api';
 
 class Store {
   private cars: Car[] = [];
-  private isInit = false;
+  private areCarsLoaded = false;
+
+  scrollPosition = 0;
 
   getCars(): Promise<Car[]> {
     return new Promise(async (resolve, reject) => {
       try {
-        if (!this.isInit) {
+        if (!this.areCarsLoaded) {
           await this.setCars();
         }
         resolve(this.cars);
@@ -21,7 +23,7 @@ class Store {
   getCarById(id: string): Promise<Car | undefined> {
     return new Promise(async (resolve, reject) => {
       try {
-        if (!this.isInit) {
+        if (!this.areCarsLoaded) {
           await this.setCars();
         }
         const car = this.cars.find(_car => _car.vehicleId === id);
@@ -37,7 +39,7 @@ class Store {
       try {
         const cars = await fetchCars();
         this.cars = cars || [];
-        this.isInit = true;
+        this.areCarsLoaded = true;
         resolve();
       } catch (error) {
         reject(error);

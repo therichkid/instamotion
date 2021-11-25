@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Car } from '../../interfaces/car';
 import Store from '../../services/store';
@@ -8,13 +8,30 @@ import Sidebar from './sidebar/Sidebar';
 
 const Overview = () => {
   const [cars, setCars] = useState<Car[]>([]);
+  const scroller = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     (async () => {
       const _cars = await Store.getCars();
       setCars(_cars);
     })();
+
+    // Used to restore scroll position on route change
+    // Scroll restoration won't work here with the current layout
+    const scrollerElement = scroller.current;
+    if (scrollerElement) {
+      scrollerElement.scrollTop = Store.scrollPosition;
+      scrollerElement.addEventListener('scroll', onScroll);
+    }
+
+    return () => {
+      scrollerElement?.removeEventListener('scroll', onScroll);
+    };
   });
+
+  const onScroll = () => {
+    Store.scrollPosition = scroller.current?.scrollTop || 0;
+  };
 
   return (
     <div className="overview">
@@ -22,7 +39,7 @@ const Overview = () => {
 
       <div className="vertical-separator"></div>
 
-      <div className="grid">
+      <div className="grid" ref={scroller}>
         {cars.map((car, index) => (
           <Link to={`/details/${car.vehicleId}`} key={index}>
             <Card car={car} />
