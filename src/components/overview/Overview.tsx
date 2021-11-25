@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Car } from '../../interfaces/car';
+import { paramToFilterMap } from '../../services/filter';
 import Store from '../../services/store';
 import Card from './card/Card';
 import './Overview.scss';
@@ -8,14 +9,10 @@ import Sidebar from './sidebar/Sidebar';
 
 const Overview = () => {
   const [cars, setCars] = useState<Car[]>([]);
+  const { search } = useLocation();
   const scroller = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    (async () => {
-      const _cars = await Store.getCars();
-      setCars(_cars);
-    })();
-
     // Used to restore scroll position on route change
     // Scroll restoration won't work here with the current layout
     const scrollerElement = scroller.current;
@@ -28,6 +25,21 @@ const Overview = () => {
       scrollerElement?.removeEventListener('scroll', onScroll);
     };
   });
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(search);
+    const paramMap: { [key: string]: string } = {};
+    searchParams.forEach((value, key) => {
+      paramMap[key] = value;
+      console.log(typeof value);
+    });
+    const filterMap = paramToFilterMap(paramMap);
+
+    (async () => {
+      const _cars = await Store.getCars(filterMap);
+      setCars(_cars);
+    })();
+  }, [search]);
 
   const onScroll = () => {
     Store.scrollPosition = scroller.current?.scrollTop || 0;

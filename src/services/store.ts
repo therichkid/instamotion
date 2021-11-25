@@ -1,6 +1,8 @@
 import { Car } from '../interfaces/car';
+import { FilterMap } from '../interfaces/filter';
 import { fetchCars } from './api';
 import { delay } from './delay';
+import { applyFilter } from './filter';
 
 class Store {
   private cars: Car[] = [];
@@ -9,7 +11,7 @@ class Store {
 
   scrollPosition = 0;
 
-  getCars(): Promise<Car[]> {
+  getCars(filterMap?: FilterMap): Promise<Car[]> {
     return new Promise(async (resolve, reject) => {
       try {
         if (this.isLoadingCars) {
@@ -18,7 +20,11 @@ class Store {
         if (!this.hasLoadedCars) {
           await this.setCars();
         }
-        resolve(this.cars);
+        if (filterMap && Object.keys(filterMap).length) {
+          resolve(applyFilter(this.cars, filterMap));
+        } else {
+          resolve(this.cars);
+        }
       } catch (error) {
         reject(error);
       }
