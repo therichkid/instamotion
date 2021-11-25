@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Car } from '../../interfaces/car';
 import Store from '../../services/store';
-import Card from '../overview/card/Card';
+import CardFields from '../common/card-fields/CardFields';
 import './Details.scss';
 
 const Details = () => {
@@ -22,7 +22,7 @@ const Details = () => {
 
   return (
     <div className="details">
-      <Card car={car}></Card>
+      <CardFields car={car}></CardFields>
     </div>
   );
 };

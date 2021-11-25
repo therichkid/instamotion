@@ -1,0 +1,20 @@
+.card-fields {
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+
+  .title {
+    grid-column: 1 / -1;
+    font-size: larger;
+    font-weight: 700;
+    margin: 10px 0 5px;
+  }
+
+  .subfield {
+    .label {
+      font-size: smaller;
+      color: #616161;
+    }
+  }
+}
