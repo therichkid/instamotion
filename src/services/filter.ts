@@ -41,7 +41,6 @@ export const applyFilter = (cars: Car[], filterMap: FilterMap): Car[] => {
           case FilterMatch.EXACT:
             return carValue === entryValue;
           case FilterMatch.INCLUDES:
-            console.log(carValue, entryValue);
             return isStringCompare && carValue.includes(entryValue);
           case FilterMatch.GTE:
             return isNumberCompare && car[key] >= entry.value;
