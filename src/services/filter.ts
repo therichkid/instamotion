@@ -50,6 +50,7 @@ export const applyFilter = (cars: Car[], filterMap: FilterMap): Car[] => {
             return false;
         }
       });
+
       if (!isMatching) {
         return false;
       }
