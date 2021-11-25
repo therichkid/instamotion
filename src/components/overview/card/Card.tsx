@@ -1,5 +1,5 @@
 import { Car } from '../../../interfaces/car';
-import CardFields from '../../common/card-fields/CardFields';
+import FieldGrid from '../../common/field-grid/FieldGrid';
 import './Card.scss';
 
 interface Props {
@@ -10,7 +10,7 @@ const Card = (props: Props) => {
   return (
     <div className="card">
       <img src={props.car?.image} alt={`${props.car?.make} ${props.car?.model}`} loading="lazy" className="image" />
-      <CardFields car={props.car} />
+      <FieldGrid car={props.car} />
     </div>
   );
 };

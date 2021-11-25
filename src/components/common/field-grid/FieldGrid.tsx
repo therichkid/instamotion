@@ -1,13 +1,13 @@
 import { ReactElement } from 'react';
 import { Car } from '../../../interfaces/car';
 import { formatDate, toLabelCase } from '../../../services/ui';
-import './CardFields.scss';
+import './FieldGrid.scss';
 
 interface Props {
   car: Car | undefined;
 }
 
-const CardFields = (props: Props) => {
+const FieldGrid = (props: Props) => {
   const generateSubfield = (
     name: keyof Car,
     formatValue?: (value: string | number) => string | number
@@ -24,7 +24,7 @@ const CardFields = (props: Props) => {
   };
 
   return (
-    <div className="card-fields">
+    <div className="field-grid">
       <div className="title">
         {props.car?.make} {props.car?.model}
       </div>
@@ -38,4 +38,4 @@ const CardFields = (props: Props) => {
   );
 };
 
-export default CardFields;
+export default FieldGrid;
