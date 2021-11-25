@@ -53,8 +53,10 @@ const Sidebar = () => {
       case FilterUIElement.SELECT:
         return (
           <select name={name} value={filter[name]} onChange={event => handleChange(name, event)}>
-            <option value="1">1</option>
-            <option value="2">2</option>
+            <option value="">-- Select --</option>
+            {field.options?.map(({ label, value }) => (
+              <option value={value}>{label}</option>
+            ))}
           </select>
         );
     }

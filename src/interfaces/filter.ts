@@ -14,6 +14,7 @@ export interface FilterUIMap {
 export interface FilterUIEntry {
   match: FilterMatch;
   element: FilterUIElement;
+  options?: { label: string; value: string | number }[];
 }
 
 export enum FilterMatch {
