@@ -6,8 +6,8 @@ interface Props {
 }
 
 const ImageCarousel = (props: Props) => {
-  let [currentIndex, setCurrentIndex] = useState<number>(0);
-  let [currentImage, setCurrentImage] = useState<string>('');
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [currentImage, setCurrentImage] = useState<string>('');
 
   useEffect(() => {
     if (props.images.length) {
