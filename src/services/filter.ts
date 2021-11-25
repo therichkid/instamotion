@@ -41,7 +41,8 @@ export const applyFilter = (cars: Car[], filterMap: FilterMap): Car[] => {
           case FilterMatch.EXACT:
             return carValue === entryValue;
           case FilterMatch.INCLUDES:
-            return carValue.includes(entryValue);
+            console.log(carValue, entryValue);
+            return isStringCompare && carValue.includes(entryValue);
           case FilterMatch.GTE:
             return isNumberCompare && car[key] >= entry.value;
           case FilterMatch.LTE:
@@ -65,6 +66,8 @@ const parseValue = (key: string, value: string): string | number => {
   switch (type) {
     case ValueType.NUMBER:
       return parseInt(value, 10);
+    case ValueType.DATE:
+      return deserializeDate(value);
     default:
       return value;
   }
@@ -102,4 +105,9 @@ const deserializeKey = (key: string): string => {
     return key.slice(0, -2);
   }
   return key;
+};
+
+const deserializeDate = (date: string): string => {
+  const [yyyy, mm] = date.split('-');
+  return `${yyyy.slice(1)}.${mm}`;
 };

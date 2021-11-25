@@ -49,7 +49,7 @@ const Sidebar = () => {
       case FilterUIElement.INPUT_NUMBER:
         return <input type="number" name={name} value={filter[name]} onChange={event => handleChange(name, event)} />;
       case FilterUIElement.INPUT_DATE:
-        return <input type="date" name={name} value={filter[name]} onChange={event => handleChange(name, event)} />;
+        return <input type="month" name={name} value={filter[name]} onChange={event => handleChange(name, event)} />;
       case FilterUIElement.SELECT:
         return (
           <select name={name} value={filter[name]} onChange={event => handleChange(name, event)}>

@@ -11,7 +11,7 @@ export const CAR_FILTER_UI_MAP: FilterUIMap = {
     { match: FilterMatch.GTE, element: FilterUIElement.INPUT_NUMBER },
     { match: FilterMatch.LTE, element: FilterUIElement.INPUT_NUMBER }
   ],
-  firstRegistration: [{ match: FilterMatch.EXACT, element: FilterUIElement.INPUT_DATE }],
+  firstRegistration: [{ match: FilterMatch.INCLUDES, element: FilterUIElement.INPUT_DATE }],
   fuel: [
     {
       match: FilterMatch.EXACT,
