@@ -2,6 +2,7 @@
   height: 100vh;
   background-color: #fff;
   overflow-y: auto;
+  transition: 250ms ease;
 
   &.is-open {
     width: 250px;
