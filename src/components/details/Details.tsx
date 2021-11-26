@@ -11,10 +11,7 @@ const Details = () => {
   const { id: carId } = useParams();
 
   useEffect(() => {
-    (async () => {
-      const _car = await Store.getCarById(carId);
-      setCar(_car);
-    })();
+    Store.getCarById(carId).then(_car => setCar(_car));
   }, [carId]);
 
   const navigate = useNavigate();

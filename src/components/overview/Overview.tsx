@@ -38,10 +38,7 @@ const Overview = () => {
     searchParams.forEach((value, key) => (paramMap[key] = value));
     const filterMap = paramToFilterMap(paramMap);
 
-    (async () => {
-      const _cars = await Store.getCars(filterMap);
-      setCars(_cars);
-    })();
+    Store.getCars(filterMap).then(_cars => setCars(_cars));
   }, [search]);
 
   const onScroll = () => {
