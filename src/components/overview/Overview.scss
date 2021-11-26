@@ -13,8 +13,8 @@
   .grid {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, auto));
-    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(250px, max-content));
+    grid-template-rows: fit-content;
     gap: 20px;
     padding: 20px;
     overflow-y: scroll;
