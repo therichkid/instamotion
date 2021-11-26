@@ -8,6 +8,7 @@ import './Sidebar.scss';
 
 const Sidebar = () => {
   const [filter, setFilter] = useState<{ [key: string]: string }>(flattenFilterUIMap());
+  const [isOpen, setIsOpen] = useState<boolean>(window.innerWidth >= 960);
   const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -94,6 +95,10 @@ const Sidebar = () => {
     setFilter(prevFilter => ({ ...prevFilter, [name]: value }));
   };
 
+  const handleToggle = () => {
+    setIsOpen(prevIsOpen => !prevIsOpen);
+  };
+
   function flattenFilterUIMap(): { [key: string]: string } {
     const map: { [key: string]: string } = {};
     for (const name in CAR_FILTER_UI_MAP) {
@@ -105,11 +110,18 @@ const Sidebar = () => {
     return map;
   }
 
-  return (
-    <div className="sidebar">
-      {Object.entries(CAR_FILTER_UI_MAP).map(([name, fields]) => {
-        return generateFilterOption(name, fields);
-      })}
+  return isOpen ? (
+    <div className="sidebar is-open">
+      {Object.entries(CAR_FILTER_UI_MAP).map(([name, fields]) => generateFilterOption(name, fields))}
+      <div className="toggle is-open" onClick={handleToggle}>
+        &#8249;
+      </div>
+    </div>
+  ) : (
+    <div className="sidebar is-closed">
+      <div className="toggle is-closed" onClick={handleToggle}>
+        &#8250;
+      </div>
     </div>
   );
 };
