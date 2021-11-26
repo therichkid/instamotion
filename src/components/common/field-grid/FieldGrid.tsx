@@ -1,6 +1,6 @@
 import { ReactElement } from 'react';
 import { Car } from '../../../interfaces/car';
-import { camelToLabelCase, formatDate } from '../../../services/ui';
+import { camelCaseToLabel, formatDate } from '../../../services/ui';
 import './FieldGrid.scss';
 
 interface Props {
@@ -16,7 +16,7 @@ const FieldGrid = (props: Props) => {
     return (
       value && (
         <div className="subfield">
-          <div className="label">{camelToLabelCase(name)}</div>
+          <div className="label">{camelCaseToLabel(name)}</div>
           <div className="value">{value && formatValue ? formatValue(value as string | number) : value}</div>
         </div>
       )

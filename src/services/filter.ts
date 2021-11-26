@@ -1,6 +1,7 @@
 import { CAR_FILTER_UI_MAP } from '../constants/filter';
 import { Car } from '../interfaces/car';
 import { FilterMap, FilterMatch, FilterUIElement, FilterUIEntry } from '../interfaces/filter';
+import { deserializeDate, deserializeFilterKey } from './serialize';
 
 enum ValueType {
   STRING,
@@ -15,7 +16,7 @@ export const paramToFilterMap = (paramMap: { [key: string]: string }): FilterMap
     const value = parseValue(key, paramMap[key]);
     const match = getMatch(key);
 
-    const deserKey = deserializeKey(key);
+    const deserKey = deserializeFilterKey(key);
     if (!map[deserKey]) {
       map[deserKey] = [];
     }
@@ -43,9 +44,9 @@ export const applyFilter = (cars: Car[], filterMap: FilterMap): Car[] => {
           case FilterMatch.INCLUDES:
             return isStringCompare && carValue.includes(entryValue);
           case FilterMatch.GTE:
-            return isNumberCompare && car[key] >= entry.value;
+            return isNumberCompare && carValue >= entryValue;
           case FilterMatch.LTE:
-            return isNumberCompare && car[key] <= entry.value;
+            return isNumberCompare && carValue <= entryValue;
           default:
             return false;
         }
@@ -94,19 +95,5 @@ const getValueType = (key: string): ValueType => {
 };
 
 const getPropsInUIMap = (key: string): FilterUIEntry[] => {
-  return CAR_FILTER_UI_MAP[deserializeKey(key)];
-};
-
-const deserializeKey = (key: string): string => {
-  if (key.endsWith('From')) {
-    return key.slice(0, -4);
-  } else if (key.endsWith('To')) {
-    return key.slice(0, -2);
-  }
-  return key;
-};
-
-const deserializeDate = (date: string): string => {
-  const [yyyy, mm] = date.split('-');
-  return `${yyyy.slice(1)}.${mm}`;
+  return CAR_FILTER_UI_MAP[deserializeFilterKey(key)];
 };

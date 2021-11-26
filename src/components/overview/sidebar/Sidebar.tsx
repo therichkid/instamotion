@@ -1,12 +1,13 @@
 import { ChangeEvent, ReactElement, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { CAR_FILTER_UI_MAP } from '../../../constants/filter';
-import { FilterMatch, FilterUIElement, FilterUIEntry } from '../../../interfaces/filter';
-import { camelToLabelCase } from '../../../services/ui';
+import { FilterUIElement, FilterUIEntry } from '../../../interfaces/filter';
+import { serializeFilterKey } from '../../../services/serialize';
+import { camelCaseToLabel } from '../../../services/ui';
 import './Sidebar.scss';
 
 const Sidebar = () => {
-  const [filter, setFilter] = useState<{ [key: string]: string }>(flattenFilter());
+  const [filter, setFilter] = useState<{ [key: string]: string }>(flattenFilterUIMap());
   const [, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -29,7 +30,7 @@ const Sidebar = () => {
   };
 
   const generateFilterField = (name: string, field: FilterUIEntry): ReactElement => {
-    const fieldName = setFieldName(name, field);
+    const fieldName = serializeFilterKey(name, field);
     return (
       <div className="field" key={fieldName}>
         {generateFilterLabel(fieldName)} {generateFilterInput(fieldName, field)}
@@ -38,21 +39,45 @@ const Sidebar = () => {
   };
 
   const generateFilterLabel = (name: string): ReactElement => {
-    const labelName = camelToLabelCase(name);
+    const labelName = camelCaseToLabel(name);
     return <label htmlFor={name}>{labelName}</label>;
   };
 
   const generateFilterInput = (name: string, field: FilterUIEntry): ReactElement => {
     switch (field.element) {
       case FilterUIElement.INPUT_TEXT:
-        return <input type="text" name={name} value={filter[name]} onChange={event => handleChange(name, event)} />;
+        return (
+          <input
+            type="text"
+            name={name}
+            value={filter[name]}
+            onChange={event => handleChange(name, event)}
+            aria-label={name}
+          />
+        );
       case FilterUIElement.INPUT_NUMBER:
-        return <input type="number" name={name} value={filter[name]} onChange={event => handleChange(name, event)} />;
+        return (
+          <input
+            type="number"
+            name={name}
+            value={filter[name]}
+            onChange={event => handleChange(name, event)}
+            aria-label={name}
+          />
+        );
       case FilterUIElement.INPUT_DATE:
-        return <input type="month" name={name} value={filter[name]} onChange={event => handleChange(name, event)} />;
+        return (
+          <input
+            type="month"
+            name={name}
+            value={filter[name]}
+            onChange={event => handleChange(name, event)}
+            aria-label={name}
+          />
+        );
       case FilterUIElement.SELECT:
         return (
-          <select name={name} value={filter[name]} onChange={event => handleChange(name, event)}>
+          <select name={name} value={filter[name]} onChange={event => handleChange(name, event)} aria-label={name}>
             <option value="">-- Select --</option>
             {field.options?.map(({ label, value }) => (
               <option value={value} key={value}>
@@ -69,24 +94,15 @@ const Sidebar = () => {
     setFilter(prevFilter => ({ ...prevFilter, [name]: value }));
   };
 
-  function flattenFilter(): { [key: string]: string } {
+  function flattenFilterUIMap(): { [key: string]: string } {
     const map: { [key: string]: string } = {};
     for (const name in CAR_FILTER_UI_MAP) {
       const option = CAR_FILTER_UI_MAP[name];
       for (const field of option) {
-        map[setFieldName(name, field)] = '';
+        map[serializeFilterKey(name, field)] = '';
       }
     }
     return map;
-  }
-
-  function setFieldName(name: string, field: FilterUIEntry): string {
-    if (field.match === FilterMatch.GTE) {
-      return name + 'From';
-    } else if (field.match === FilterMatch.LTE) {
-      return name + 'To';
-    }
-    return name;
   }
 
   return (
