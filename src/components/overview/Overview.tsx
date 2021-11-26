@@ -17,14 +17,20 @@ const Overview = () => {
     // Scroll restoration won't work here with the current layout
     const scrollerElement = scroller.current;
     if (scrollerElement) {
-      scrollerElement.scrollTop = Store.scrollPosition;
       scrollerElement.addEventListener('scroll', onScroll);
     }
 
     return () => {
       scrollerElement?.removeEventListener('scroll', onScroll);
     };
-  });
+  }, []);
+
+  useEffect(() => {
+    const scrollerElement = scroller.current;
+    if (scrollerElement) {
+      scrollerElement.scrollTop = Store.scrollPosition;
+    }
+  }, [cars]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(search);
@@ -50,7 +56,7 @@ const Overview = () => {
 
       <div className="grid" ref={scroller}>
         {cars.map((car, index) => (
-          <Link to={`/details/${car.vehicleId}`} key={index}>
+          <Link to={`/details/${car.vehicleId}`} key={index} id={car.vehicleId}>
             <Card car={car} />
           </Link>
         ))}
